@@ -7,7 +7,7 @@ const favouritesRoutes = require('./routes/favouritesRoutes');
 const app = express();
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/recipesDB')
+mongoose.connect('mongodb+srv://dbUser:strong_pass@cluster0.jbm2x.mongodb.net/')
   .then(() => console.log('MongoDB connected'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
