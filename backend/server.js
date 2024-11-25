@@ -7,6 +7,9 @@ const favouritesRoutes = require('./routes/favouritesRoutes');
 const app = express();
 app.use(express.json());
 
+const cors = require('cors');
+app.use(cors());
+
 mongoose.connect('mongodb+srv://dbUser:strong_pass@cluster0.jbm2x.mongodb.net/')
   .then(() => console.log('MongoDB connected'))
   .catch((error) => console.error('MongoDB connection error:', error));
