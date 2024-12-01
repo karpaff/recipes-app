@@ -1,21 +1,27 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const userRoutes = require('./routes/userRoutes');
-const recipeRoutes = require('./routes/recipeRoutes');
-const favouritesRoutes = require('./routes/favouritesRoutes');
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+
+const userRoutes = require("./routes/user");
+const recipeRoutes = require("./routes/recipe");
 
 const app = express();
-app.use(express.json());
+const PORT = 3000;
+
+app.use(bodyParser.json());
+
 
 const cors = require('cors');
 app.use(cors());
 
-mongoose.connect('mongodb+srv://dbUser:strong_pass@cluster0.jbm2x.mongodb.net/')
-  .then(() => console.log('MongoDB connected'))
-  .catch((error) => console.error('MongoDB connection error:', error));
+mongoose.connect("mongodb://localhost:27017/recipesDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
-app.use('/users', userRoutes);
-app.use('/recipes', recipeRoutes);
-app.use('/favourites', favouritesRoutes);
+app.use("/user", userRoutes);
+app.use("/recipes", recipeRoutes);
 
-app.listen(3000, () => console.log('Server is running on port 3000'));
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
