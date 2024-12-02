@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-mongoose.connect("mongodb://localhost:27017/recipesDB", {
+mongoose.connect("mongodb+srv://dbUser:strong_pass@cluster0.jbm2x.mongodb.net/", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
