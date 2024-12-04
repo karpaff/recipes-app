@@ -107,4 +107,41 @@ router.post("/favourites", async (req, res) => {
   }
 });
 
+
+router.delete("/favourites", async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Authorization token is missing or invalid" });
+  }
+
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const recipeId = req.query.recipeId;
+
+    if (!recipeId) {
+      return res.status(400).json({ message: "Recipe ID is required" });
+    }
+
+    let favourites = await Favourite.findOne({ userId: decoded.id });
+    if (!favourites) {
+      return res.status(404).json({ message: "No favourites found for this user" });
+    }
+
+    if (!favourites.recipeIds.includes(recipeId)) {
+      return res.status(404).json({ message: "Recipe not found in favourites" });
+    }
+
+    favourites.recipeIds = favourites.recipeIds.filter(id => id !== recipeId);
+    await favourites.save();
+
+    res.status(200).json({ message: "Recipe removed from favourites" });
+  } catch (error) {
+    res.status(401).json({ message: "Invalid or expired token", error });
+  }
+});
+
+
 module.exports = router;
