@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:fitsSystemWindows="true">
+
+    <!-- Кнопки Log In и Sign Up -->
+    <LinearLayout
+        android:id="@+id/auth_buttons_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log In" />
+
+        <Button
+            android:id="@+id/signup_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Кнопка Log Out -->
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        android:text="Log Out" />
+
+    <!-- Аватарка -->
+    <ImageView
+        android:id="@+id/avatar_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/ic_avatar_placeholder" />
+
+    <!-- Логин -->
+    <TextView
+        android:id="@+id/user_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/avatar_image"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Username"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- Роль -->
+    <TextView
+        android:id="@+id/user_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_login"
+        android:layout_marginTop="8dp"
+        android:layout_centerHorizontal="true"
+        android:text="Role: guest"
+        android:textSize="16sp" />
+
+    <!-- Количество рецептов в избранном -->
+    <TextView
+        android:id="@+id/favorites_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_role"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Favorites: 0"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+</RelativeLayout>
