@@ -1,0 +1,14 @@
+<web-app>
+    <servlet>
+        <servlet-name>GroovyServlet</servlet-name>
+        <servlet-class>groovy.servlet.GroovyServlet</servlet-class>
+        <init-param>
+            <param-name>resource.name</param-name>
+            <param-value>index.groovy</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GroovyServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+</web-app>
