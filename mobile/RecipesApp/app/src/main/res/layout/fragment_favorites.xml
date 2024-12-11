@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favorites"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+    <!-- Поле поиска -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:startIconDrawable="@drawable/ic_search"
+        app:boxBackgroundMode="filled"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search favorites..."
+            android:padding="12dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Текст пустого состояния -->
+    <TextView
+        android:id="@+id/emptyFavoritesText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No favorite recipes yet"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
+
+    <!-- Список рецептов -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favorites_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
