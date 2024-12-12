@@ -129,12 +129,13 @@ router.delete("/favourites", async (req, res) => {
     if (!favourites) {
       return res.status(404).json({ message: "No favourites found for this user" });
     }
+    const index = favourites.recipeIds.findIndex(id => id.toString() === recipeId);
 
-    if (!favourites.recipeIds.includes(recipeId)) {
+    if (index === -1) {
       return res.status(404).json({ message: "Recipe not found in favourites" });
     }
-
-    favourites.recipeIds = favourites.recipeIds.filter(id => id !== recipeId);
+    
+    favourites.recipeIds.splice(index, 1);
     await favourites.save();
 
     res.status(200).json({ message: "Recipe removed from favourites" });
