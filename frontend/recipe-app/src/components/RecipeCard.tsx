@@ -32,7 +32,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ id, picture, name, description,
 
       if (favorite) {
         // Удаление из избранного
-        await axios.delete(`http://77.221.155.11:3000/user/favourites/${id}`, {
+        await axios.delete(`http://77.221.155.11:3000/user/favourites?recipeId=${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

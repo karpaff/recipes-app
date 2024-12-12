@@ -59,19 +59,48 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  console.log(id);
   try {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).json({ message: "Recipe ID is required" });
+    }
+
+    const token = req.headers.authorization?.split(" ")[1];
+    let userId = null;
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, SECRET_KEY);
+        userId = decoded.id;
+      } catch (err) {
+        return res.status(401).json({ message: "Invalid or expired token" });
+      }
+    }
+
     const recipe = await Recipe.findById(id);
 
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
 
-    res.json(recipe);
+    let isFavourite = false;
+    if (userId) {
+      const favouriteData = await Favourite.findOne({ userId });
+      if (favouriteData) {
+        isFavourite = favouriteData.recipeIds.includes(id);
+      }
+    }
+
+    const enrichedRecipe = {
+      ...recipe._doc,
+      isFavourite,
+    };
+
+    res.json(enrichedRecipe);
   } catch (error) {
-    console.error("Error fetching recipe:", error);
-    res.status(500).json({ message: "Error fetching recipe", error });
+    console.error(error);
+    res.status(500).json({ message: "Error fetching recipe" });
   }
 });
 

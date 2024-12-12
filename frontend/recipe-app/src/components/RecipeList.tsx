@@ -5,6 +5,7 @@ import RecipeCard from "./RecipeCard";
 import "./RecipeList.css";
 
 interface Recipe {
+  isFavourite: boolean | undefined;
   _id: string;
   picture: string;
   name: string;
@@ -19,8 +20,20 @@ const RecipeList: React.FC = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const response = await axios.get("http://77.221.155.11:3000/recipes");
-        setRecipes(response.data);
+        const token = localStorage.getItem("token");
+        const response = await fetch("http://77.221.155.11:3000/recipes", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token && { Authorization: `Bearer ${token}` }), // Добавляем токен в заголовок, если он есть
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Не удалось загрузить рецепты");
+        }
+
+        const data = await response.json();
+        setRecipes(data);
       } catch (err) {
         setError("Failed to fetch recipes.");
       } finally {
@@ -48,6 +61,7 @@ const RecipeList: React.FC = () => {
           picture={recipe.picture}
           name={recipe.name}
           description={recipe.description}
+          isFavorite={recipe.isFavourite}
         />
       ))}
     </div>

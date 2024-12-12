@@ -13,6 +13,6 @@ export interface Ingredient {
     ingredients: Ingredient[];
     instructions: string[];
     difficulty: string;
-    isFavorite?: boolean; // Дополнительное поле для избранного
+    isFavourite?: boolean; // Дополнительное поле для избранного
   }
   
