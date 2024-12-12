@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./FilterPanel.css";
 
 interface Filter {
   meal: string;

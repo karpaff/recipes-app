@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "./Sidebar";
-import Header from "./Header";
+import "./PageLayout.css"
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -11,7 +11,6 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
     <div className="page-layout">
       <Sidebar />
       <main>
-        <Header />
         {children}
       </main>
     </div>

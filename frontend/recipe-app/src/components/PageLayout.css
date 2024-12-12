@@ -1,0 +1,11 @@
+.page-layout {
+    display: flex;
+    flex-direction: row; /* Элементы будут выстраиваться в строку */
+    align-items: flex-start; /* Выравнивание по верхнему краю (если нужно) */
+    justify-content: flex-start; /* Расположение элементов в начале строки (можно изменить на center, space-between и т.д.) */
+    gap: 1rem;
+  }
+  
+  main {
+    flex-grow: 1; /* Чтобы основной контент занимал оставшееся пространство */
+  }
