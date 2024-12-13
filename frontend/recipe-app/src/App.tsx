@@ -7,8 +7,6 @@ import PageLayout from "./components/PageLayout";
 import RecipesPage from "./pages/RecipesPage";
 import FavouritesPage from "./pages/FavouritesPage";
 import ProfilePage from "./pages/ProfilePage";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
 import RecipePage from "./pages/RecipePage";
 
 const App: React.FC = () => {
@@ -22,8 +20,6 @@ const App: React.FC = () => {
               <Route path="/recipes/:id" element={<RecipePage />} />
               <Route path="/favourites" element={<FavouritesPage />} />
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/login" element={<LoginPage />} />
             </Routes>
           </PageLayout>
         </Router>

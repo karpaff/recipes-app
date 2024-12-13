@@ -7,3 +7,9 @@ body{
 .recipes-page{
     width: 100%;
 }
+
+input{
+    margin-top: 3rem;
+    margin-left: 2rem;
+    width: 94%;
+}

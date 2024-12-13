@@ -7,10 +7,9 @@ body{
 }
 
 input {
-    flex: 1; /* Поле ввода занимает всё доступное пространство */
-    padding: 0.75rem; /* Внутренние отступы */
-    border: 1px solid #ccc; /* Цвет и ширина рамки */
-    border-radius: 4px; /* Скруглённые углы */
-    font-size: 1rem; /* Размер текста */
-    color: #4a3b35; /* Цвет текста */
+    flex: 1; 
+    padding: 0.75rem; 
+    border: 1px solid #ccc; 
+    font-size: 1rem; 
+    color: #4a3b35; 
   }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "./ProfilePage.css"
 
 export default function ProfilePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
@@ -52,16 +53,17 @@ export default function ProfilePage() {
     <div className="profile-page">
       {isLoggedIn ? (
         <div>
-          <h1>Welcome, {username}!</h1>
-          <p>Your role: {role}</p>
-          <button onClick={handleLogout}>Logout</button>
+          <h1 className="login">Welcome, {username}!</h1>
+          <p className="login">Your role: {role}</p>
+          <button className="submit" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <div>
-          <h1>{formType === "login" ? "Login" : "Register"}</h1>
+          <h1 className="login">{formType === "login" ? "Login" : "Register"}</h1>
           <input
             type="text"
             name="login"
+            className="log"
             placeholder="Login"
             value={formData.login}
             onChange={handleInputChange}
@@ -69,14 +71,15 @@ export default function ProfilePage() {
           <input
             type="password"
             name="password"
+            className="log"
             placeholder="Password"
             value={formData.password}
             onChange={handleInputChange}
           />
-          <button onClick={handleAuth}>
+          <button className="submit" onClick={handleAuth}>
             {formType === "login" ? "Login" : "Register"}
           </button>
-          <button onClick={() => setFormType(formType === "login" ? "register" : "login")}>
+          <button className="submit" onClick={() => setFormType(formType === "login" ? "register" : "login")}>
             Change to {formType === "login" ? "register" : "login"}
           </button>
         </div>

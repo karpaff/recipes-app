@@ -1,0 +1,20 @@
+.login {
+    color: #333;
+    margin-top: 20px;
+    margin-left: 10%;
+  }
+
+  .submit{
+    align-items: center;
+    margin-top: 2rem;
+    margin-left: 3rem;
+    margin-right: 2rem;
+  }
+
+  .submit:hover{
+    border: #6b3e13 solid 1px;
+  }
+
+  .log{
+    width: 200px;
+  }

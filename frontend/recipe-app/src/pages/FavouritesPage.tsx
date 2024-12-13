@@ -3,19 +3,11 @@ import RecipeList from "../components/RecipeList";
 import { RecipeContext } from "../context/RecipeContext";
 import "./FavoritesPage.css";
 
-interface Recipe {
-  _id: string;
-  picture: string;
-  name: string;
-  description: string;
-}
-
 const FavouritesPage: React.FC = () => {
   const recipeContext = useContext(RecipeContext);
 
   if (!recipeContext) return null;
-
-  const { fetchAll } = recipeContext;
+  
   const [recipes, setRecipes] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
@@ -28,12 +20,12 @@ const FavouritesPage: React.FC = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          ...(token && { Authorization: `Bearer ${token}` }), // Добавляем токен, если он есть
+          ...(token && { Authorization: `Bearer ${token}` }), 
         },
       });
 
       if (!response.ok) {
-        throw new Error("Не удалось загрузить рецепты");
+        throw new Error("Failed to load recipes");
       }
 
       const data = await response.json();
@@ -43,7 +35,7 @@ const FavouritesPage: React.FC = () => {
       }));
       setRecipes(updatedData);
     } catch (err) {
-      setError("Не удалось загрузить рецепты");
+      setError("Failed to load recipes");
     } finally {
       setLoading(false);
     }
@@ -64,13 +56,14 @@ const FavouritesPage: React.FC = () => {
   return (
     <div className="recipes-page">
       <input
+        className="search"
         type="text"
-        placeholder="Поиск рецептов..."
+        placeholder="Search recipe..."
         value={searchQuery}
         onChange={handleSearchChange}
       />
       {loading ? (
-        <p>Загрузка рецептов...</p>
+        <p>Loading recipes...</p>
       ) : error ? (
         <p>{error}</p>
       ) : (
