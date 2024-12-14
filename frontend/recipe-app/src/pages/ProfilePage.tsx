@@ -23,7 +23,10 @@ export default function ProfilePage() {
       });
       const data = await response.json();
 
-      if (response.ok) {
+      if(response.status == 201){
+        alert("Registration success!");
+      }
+      else if (response.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.user.login);
         localStorage.setItem("role", data.user.role);
