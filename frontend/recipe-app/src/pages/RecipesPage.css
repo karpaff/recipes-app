@@ -1,0 +1,15 @@
+body{
+    width: 100%;
+}
+
+.recipes-page{
+    width: 100%;
+}
+
+input {
+    flex: 1; 
+    padding: 0.75rem; 
+    border: 1px solid #ccc; 
+    font-size: 1rem; 
+    color: #4a3b35; 
+  }

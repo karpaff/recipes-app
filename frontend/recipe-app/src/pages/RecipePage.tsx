@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import "./RecipePage.css";
 
 interface Ingredient {
   name: string;
@@ -41,42 +42,54 @@ const RecipePage: React.FC = () => {
     fetchRecipe();
   }, [id]);
 
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   if (!recipe) return <p>Recipe not found</p>;
 
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-      <img
-        src={recipe.picture}
-        alt={recipe.name}
-        style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-      />
-      <h1 style={{ marginTop: "20px", fontSize: "24px" }}>{recipe.name}</h1>
-      <p style={{ color: "#888", fontSize: "14px" }}>
-        Created at: {new Date(recipe.createdAt).toLocaleDateString()}
-      </p>
-      <p><strong>Description:</strong> {recipe.description}</p>
-      <p><strong>Time to prepare:</strong> {recipe.timeToPrepare} minutes</p>
-      <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
+    <div className="recipe-card">
+    
+    <div className="top-content">
+    <img
+      src={recipe.picture}
+      alt={recipe.name}
+      className="recipe-image"
+    />
+      <div className="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          {recipe.ingredients.map((ingredient) => (
+            <li key={ingredient._id}>
+              {ingredient.name} - {ingredient.quantity}
+            </li>
+          ))}
+        </ul>
+      </div>
       
-      <h3>Ingredients</h3>
-      <ul>
-        {recipe.ingredients.map((ingredient) => (
-          <li key={ingredient._id}>
-            {ingredient.name} - {ingredient.quantity}
-          </li>
-        ))}
-      </ul>
-
-      <h3>Instructions</h3>
-      <ol>
-        {recipe.instructions.map((step, index) => (
-          <li key={index}>{step}</li>
-        ))}
-      </ol>
     </div>
+    <div className="bottom-content">
+      <h1>{recipe.name}</h1>
+      <div className="details">
+        <p className="meta">Created at: {new Date(recipe.createdAt).toLocaleDateString()}</p>
+        <p><strong>Description:</strong> {recipe.description}</p>
+        <p><strong>Time to prepare:</strong> {recipe.timeToPrepare} minutes</p>
+        <p><strong>Difficulty:</strong> {recipe.difficulty}</p>
+      </div>
+      <div className="instructions">
+        <h3>Instructions</h3>
+        <ol>
+          {recipe.instructions.map((step, index) => (
+            <li key={index}>{step}</li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </div>
+  
+
+  
   );
 };
 

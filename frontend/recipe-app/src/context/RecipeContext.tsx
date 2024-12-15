@@ -1,4 +1,3 @@
-// src/context/RecipeContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import axios from "axios";
 import { Recipe } from "../types";
@@ -19,7 +18,7 @@ export const RecipeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       const response = await axios.get("http://77.221.155.11:3000/recipes");
       const fetchedRecipes = response.data.map((recipe: any) => ({
         ...recipe,
-        isFavorite: false, // Добавляем поле для локального хранения избранного
+        isFavorite: false, 
       }));
       setRecipes(fetchedRecipes);
     } catch (error) {
@@ -30,7 +29,7 @@ export const RecipeProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const toggleFavorite = (id: string) => {
     setRecipes((prevRecipes) =>
       prevRecipes.map((recipe) =>
-        recipe.id === id ? { ...recipe, isFavorite: !recipe.isFavorite } : recipe
+        recipe.id === id ? { ...recipe, isFavorite: !recipe.isFavourite } : recipe
       )
     );
   };

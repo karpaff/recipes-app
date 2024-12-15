@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap');
+
+.sidebar {
+    background-color: #764130; 
+    color: #fff;
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    padding: 1rem; 
+    width: 160px; 
+    margin-top: 1.5rem;
+    margin-left: 1%;
+  }
+  
+  .sidebar nav ul {
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    color: #fff;
+    flex-direction: column; 
+    gap: 0.5rem; 
+  }
+  
+  .sidebar nav li {
+
+    margin: 0;
+  }
+  
+  .sidebar nav a {
+    text-decoration: none; 
+    font-size: 1.6rem; 
+    font-weight: 700; 
+    color: #fff; 
+    padding: 0.75rem 1rem; 
+    border-radius: 4px;
+    height: 100px;
+    transition: background-color 0.3s, color 0.3s; 
+  }
+  
+  .sidebar nav a:hover {
+    width: 180px;
+    background-color: #F5E0D0; 
+    color: #764130; 
+  }
+  
+  .sidebar nav a.active {
+    background-color: #9c6e4e; 
+    color: #fff;
+  }
+  

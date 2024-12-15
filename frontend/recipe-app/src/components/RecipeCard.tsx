@@ -61,19 +61,22 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ id, picture, name, description,
   };
 
   return (
-    <div className="recipe-card" onClick={handleCardClick}>
-      <img src={picture} alt={name} className="recipe-card__image" />
-      <div className="recipe-card__content">
-        <h2 className="recipe-card__title">{name}</h2>
-        <p className="recipe-card__description">{description}</p>
-      </div>
-      <button
-        className="recipe-card__favorite-button"
-        onClick={toggleFavorite} // Обработка клика по звёздочке
-      >
-        {favorite ? "★" : "☆"}
-      </button>
+    <div className="recipe-cards" onClick={handleCardClick}>
+  <button
+    className="recipe-cards__favorite-button"
+    onClick={toggleFavorite} // Обработка клика по звёздочке
+  >
+    {favorite ? "★" : "☆"}
+  </button>
+
+  <div className="recipe-cards__content">
+    <img src={picture} className="recipe-cards__image" alt="Recipe" />
+    <div className="recipe-cards__text">
+      <h2 className="recipe-cards__title">{name}</h2>
+      <p className="recipe-cards__description">{description}</p>
     </div>
+  </div>
+</div>
   );
 };
 

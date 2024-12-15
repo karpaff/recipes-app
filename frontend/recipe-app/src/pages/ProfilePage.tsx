@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "./ProfilePage.css"
 
 export default function ProfilePage() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [role, setRole] = useState(localStorage.getItem("role") || "");
-  const [formType, setFormType] = useState("login"); // "login" or "register"
+  const [formType, setFormType] = useState("login"); 
   const [formData, setFormData] = useState({ login: "", password: "" });
 
   const handleInputChange = (e: { target: { name: any; value: any; }; }) => {
@@ -22,20 +23,23 @@ export default function ProfilePage() {
       });
       const data = await response.json();
 
-      if (response.ok) {
+      if(response.status == 201){
+        alert("Registration success!");
+      }
+      else if (response.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("username", data.user.login);
         localStorage.setItem("role", data.user.role);
         setUsername(data.user.login);
         setRole(data.user.role);
         setIsLoggedIn(true);
-        alert("Авторизация успешна!");
+        alert("Login success!");
       } else {
-        alert(data.message || "Ошибка авторизации");
+        alert(data.message || "Login error");
       }
     } catch (error) {
-      console.error("Ошибка:", error);
-      alert("Ошибка соединения с сервером");
+      console.error("Error:", error);
+      alert("Server error");
     }
   };
 
@@ -52,32 +56,34 @@ export default function ProfilePage() {
     <div className="profile-page">
       {isLoggedIn ? (
         <div>
-          <h1>Добро пожаловать, {username}!</h1>
-          <p>Ваша роль: {role}</p>
-          <button onClick={handleLogout}>Выйти</button>
+          <h1 className="login">Welcome, {username}!</h1>
+          <p className="login">Your role: {role}</p>
+          <button className="submit" onClick={handleLogout}>Logout</button>
         </div>
       ) : (
         <div>
-          <h1>{formType === "login" ? "Авторизация" : "Регистрация"}</h1>
+          <h1 className="login">{formType === "login" ? "Login" : "Register"}</h1>
           <input
             type="text"
             name="login"
-            placeholder="Логин"
+            className="log"
+            placeholder="Login"
             value={formData.login}
             onChange={handleInputChange}
           />
           <input
             type="password"
             name="password"
-            placeholder="Пароль"
+            className="log"
+            placeholder="Password"
             value={formData.password}
             onChange={handleInputChange}
           />
-          <button onClick={handleAuth}>
-            {formType === "login" ? "Войти" : "Зарегистрироваться"}
+          <button className="submit" onClick={handleAuth}>
+            {formType === "login" ? "Login" : "Register"}
           </button>
-          <button onClick={() => setFormType(formType === "login" ? "register" : "login")}>
-            Переключиться на {formType === "login" ? "регистрацию" : "авторизацию"}
+          <button className="submit" onClick={() => setFormType(formType === "login" ? "register" : "login")}>
+            Change to {formType === "login" ? "register" : "login"}
           </button>
         </div>
       )}
