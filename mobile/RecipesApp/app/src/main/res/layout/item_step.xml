@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="8dp"
+    >
 
     <TextView
         android:id="@+id/step_number"
@@ -11,7 +12,9 @@
         android:layout_height="wrap_content"
         android:text="1."
         android:textSize="16sp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/pantone"
+        />
 
     <TextView
         android:id="@+id/step_description"
@@ -19,5 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Step description"
+        android:textColor="@color/pantone"
         android:textSize="16sp" />
 </LinearLayout>

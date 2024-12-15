@@ -9,11 +9,14 @@
     <color name="selected_color">#6200EE</color>
     <color name="unselected_color">#757575</color>
     <color name="white">#FFFFFF</color>
-    <color name="primaryColor">#6200EE</color>
-    <color name="primaryDarkColor">#3700B3</color>
+    <color name="primaryColor">#5F2E1C</color>
+    <color name="primaryDarkColor">#FFFFFF</color>
     <color name="accentColor">#03DAC5</color>
     <color name="primary_light">#E3F2FD</color>
     <color name="primary_dark">#1565C0</color>
     <color name="light_gray">#F7F7F7</color>
     <color name="gray">#9E9E9E</color>
+    <color name="pantone">#764130</color>
+    <color name="ripple_color">#EDC7B8</color>
+    <color name="secondary_color">#F5E0D0</color>
 </resources>

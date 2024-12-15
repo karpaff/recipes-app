@@ -1,4 +1,4 @@
-package com.example.recipesapp.data
+package com.example.recipesapp.data.model
 
 data class RecipeDetails(
     val _id: String,
@@ -9,5 +9,6 @@ data class RecipeDetails(
     val timeToPrepare: Int,
     val ingredients: List<Ingredient>,
     val instructions: List<String>,
-    val difficulty: String
+    val difficulty: String,
+    val isFavourite: Boolean
 )

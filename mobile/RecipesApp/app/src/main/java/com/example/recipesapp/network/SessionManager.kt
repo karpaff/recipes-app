@@ -1,4 +1,4 @@
-package com.example.recipesapp
+package com.example.recipesapp.network
 
 import android.content.Context
 import android.content.SharedPreferences

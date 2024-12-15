@@ -1,78 +1,128 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:fitsSystemWindows="true">
+    android:background="@color/secondary_color"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Кнопки Log In и Sign Up -->
-    <LinearLayout
-        android:id="@+id/auth_buttons_container"
-        android:layout_width="wrap_content"
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal">
+        android:background="@color/pantone"
+        android:elevation="0dp" />
 
-        <Button
-            android:id="@+id/login_button"
+    <!-- Цветной блок -->
+    <RelativeLayout
+        android:id="@+id/color_block"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/pantone"
+        android:layout_below="@id/toolbar">
+
+        <!-- Кнопки Log In и Sign Up -->
+        <LinearLayout
+            android:id="@+id/auth_buttons_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log In" />
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pantone"
+                android:backgroundTint="@color/secondary_color"
+                android:text="Log In"
+                android:paddingHorizontal="16dp"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/signup_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/pantone"
+                android:backgroundTint="@color/secondary_color"
+                android:text="Sign Up"
+                android:paddingHorizontal="16dp" />
+        </LinearLayout>
+
+        <!-- Кнопка Log Out -->
         <Button
-            android:id="@+id/signup_button"
+            android:id="@+id/logout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:layout_marginStart="8dp" />
-    </LinearLayout>
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/secondary_color"
+            android:textColor="@color/pantone"
+            android:text="Log Out"
+            android:visibility="gone" />
 
-    <!-- Кнопка Log Out -->
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:visibility="gone"
-        android:text="Log Out" />
+        <!-- Заголовок Profile -->
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/auth_buttons_container"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="Profile"
+            android:textSize="24sp"
+            android:textColor="@color/secondary_color"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <!-- Аватарка -->
     <ImageView
         android:id="@+id/avatar_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/ic_avatar_placeholder" />
+        android:layout_below="@id/color_block"
+        android:layout_marginTop="48dp"
+        android:src="@drawable/ic_avatar_placeholder"
+        android:background="@drawable/rounded_edittext"
+        android:elevation="8dp"
+        android:padding="8dp" />
 
-    <!-- Логин -->
-    <TextView
-        android:id="@+id/user_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/avatar_image"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true"
-        android:text="Username"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
-
-    <!-- Роль -->
+    <!-- Приветственное сообщение -->
     <TextView
         android:id="@+id/user_role"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_login"
-        android:layout_marginTop="8dp"
+        android:layout_below="@id/avatar_image"
+        android:layout_marginTop="24dp"
         android:layout_centerHorizontal="true"
-        android:text="Role: guest"
-        android:textSize="16sp" />
+        android:text="Welcome, guest!"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/pantone"
+        android:gravity="center" />
 
-    <!-- Количество рецептов в избранном -->
+    <!-- Дополнительное сообщение -->
+    <TextView
+        android:id="@+id/favorites_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_role"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="Log In or Sign Up to add recipes to favorites"
+        android:textSize="16sp"
+        android:textColor="@color/pantone"
+        android:gravity="center"
+        android:paddingHorizontal="24dp"
+        android:visibility="gone" />
+
+    <!-- Количество избранного -->
     <TextView
         android:id="@+id/favorites_count"
         android:layout_width="wrap_content"
@@ -80,8 +130,9 @@
         android:layout_below="@id/user_role"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:text="Favorites: 0"
+        android:text="You have 1 favorite recipes. Let's use them to cook delicious dinner!"
         android:textSize="16sp"
+        android:textColor="@color/pantone"
+        android:gravity="center"
         android:visibility="gone" />
-
 </RelativeLayout>

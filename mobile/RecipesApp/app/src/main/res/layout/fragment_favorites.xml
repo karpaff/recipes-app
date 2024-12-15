@@ -3,34 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@color/white">
+    android:background="@color/secondary_color">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Верхний цветной блок -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Favorites"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="16dp" />
+        android:orientation="vertical"
+        android:background="@color/pantone"
+        android:padding="16dp"
+        android:elevation="4dp">
 
-    <!-- Поле поиска -->
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pantone">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favorites"
+                android:textSize="20sp"
+                android:textColor="@color/secondary_color"
+                android:layout_gravity="center"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </LinearLayout>
+
+    <!-- Поисковая строка -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:startIconDrawable="@drawable/ic_search"
+        app:startIconTint="@color/pantone"
         app:boxBackgroundMode="filled"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp">
+        app:boxStrokeWidth="0dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusBottomEnd="20dp"
+        android:layout_marginTop="4dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_input"
+            android:id="@+id/searchInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search favorites..."
-            android:padding="12dp" />
+            android:hint="Search something..."
+            android:textColor="@color/pantone"
+            android:padding="12dp"
+            android:background="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Прогресс-бар -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginTop="16dp" />
 
     <!-- Текст пустого состояния -->
     <TextView

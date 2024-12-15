@@ -1,4 +1,4 @@
-package com.example.recipesapp.fragment
+package com.example.recipesapp.ui.dialog
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle

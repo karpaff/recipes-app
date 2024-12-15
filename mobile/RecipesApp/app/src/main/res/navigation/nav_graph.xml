@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/recipesFragment"
-        android:name="com.example.recipesapp.fragment.RecipesFragment"
+        android:name="com.example.recipesapp.ui.fragment.RecipesFragment"
         android:label="Recipes"
         tools:layout="@layout/fragment_recipes">
 
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/recipeDetailsFragment"
-        android:name="com.example.recipesapp.fragment.RecipeDetailsFragment"
+        android:name="com.example.recipesapp.ui.fragment.RecipeDetailsFragment"
         android:label="Recipe Details"
         tools:layout="@layout/fragment_recipe_details">
 
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.recipesapp.fragment.FavoritesFragment"
+        android:name="com.example.recipesapp.ui.fragment.FavoritesFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites">
 
@@ -41,7 +41,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.recipesapp.fragment.ProfileFragment"
+        android:name="com.example.recipesapp.ui.fragment.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
 </navigation>

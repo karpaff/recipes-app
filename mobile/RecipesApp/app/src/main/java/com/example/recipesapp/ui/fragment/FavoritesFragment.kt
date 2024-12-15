@@ -1,4 +1,4 @@
-package com.example.recipesapp.fragment
+package com.example.recipesapp.ui.fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -7,23 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.recipesapp.SessionManager
-import com.example.recipesapp.adapter.FavoritesAdapter
+import com.example.recipesapp.RecipesApp
+import com.example.recipesapp.ui.adapter.FavoritesAdapter
 import com.example.recipesapp.databinding.FragmentFavoritesBinding
-import com.example.recipesapp.network.RecipeResponse
-import com.example.recipesapp.network.RetrofitInstance
-import kotlinx.coroutines.launch
+import com.example.recipesapp.viewmodel.FavoritesState
+import com.example.recipesapp.viewmodel.FavoritesViewModel
 
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: FavoritesViewModel by viewModels {
+        (requireActivity().application as RecipesApp).appViewModelFactory
+    }
+
     private lateinit var favoritesAdapter: FavoritesAdapter
-    private var allFavorites: List<RecipeResponse> = emptyList() // Для фильтрации
-    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,10 +38,16 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionManager = SessionManager(requireContext())
         setupRecyclerView()
         setupSearch()
-        fetchFavorites()
+        setupObservers()
+
+        val token = (requireActivity().application as RecipesApp).sessionManager.fetchAuthToken()
+        if (!token.isNullOrEmpty()) {
+            viewModel.fetchFavorites(token)
+        } else {
+            showEmptyState()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -57,56 +65,44 @@ class FavoritesFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                filterFavorites(s.toString())
+                viewModel.filterFavorites(s.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {}
         })
     }
 
-    private fun filterFavorites(query: String) {
-        val filtered = if (query.isEmpty()) {
-            allFavorites
-        } else {
-            allFavorites.filter { favorite ->
-                favorite.name.contains(query, ignoreCase = true) ||
-                        favorite.description.contains(query, ignoreCase = true)
-            }
-        }
-        favoritesAdapter.submitList(filtered)
-    }
-
-    private fun fetchFavorites() {
-        val token = sessionManager.fetchAuthToken()
-        if (token.isNullOrEmpty()) {
-            binding.emptyFavoritesText.visibility = View.VISIBLE
-            binding.favoritesList.visibility = View.GONE
-            return
-        }
-
-        lifecycleScope.launch {
-            try {
-                val response = RetrofitInstance.api.getFavorites("Bearer $token")
-                if (response.isSuccessful) {
-                    val favorites = response.body()
-                    if (favorites.isNullOrEmpty()) {
+    private fun setupObservers() {
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is FavoritesState.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.favoritesList.visibility = View.GONE
+                    binding.emptyFavoritesText.visibility = View.GONE
+                }
+                is FavoritesState.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    if (state.favorites.isEmpty()) {
                         binding.emptyFavoritesText.visibility = View.VISIBLE
                         binding.favoritesList.visibility = View.GONE
                     } else {
-                        allFavorites = favorites
-                        favoritesAdapter.submitList(favorites)
                         binding.emptyFavoritesText.visibility = View.GONE
                         binding.favoritesList.visibility = View.VISIBLE
+                        favoritesAdapter.submitList(state.favorites)
                     }
-                } else {
+                }
+                is FavoritesState.Error -> {
+                    binding.progressBar.visibility = View.GONE
                     binding.emptyFavoritesText.visibility = View.VISIBLE
                     binding.favoritesList.visibility = View.GONE
                 }
-            } catch (e: Exception) {
-                binding.emptyFavoritesText.visibility = View.VISIBLE
-                binding.favoritesList.visibility = View.GONE
             }
         }
+    }
+
+    private fun showEmptyState() {
+        binding.emptyFavoritesText.visibility = View.VISIBLE
+        binding.favoritesList.visibility = View.GONE
     }
 
     private fun openRecipeDetails(recipeId: String) {

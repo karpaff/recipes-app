@@ -1,4 +1,4 @@
-package com.example.recipesapp.fragment
+package com.example.recipesapp.ui.fragment
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recipesapp.RecipesApp
 import com.example.recipesapp.viewmodel.RecipesViewModel
-import com.example.recipesapp.adapter.RecipesAdapter
-import com.example.recipesapp.data.Recipe
+import com.example.recipesapp.ui.adapter.RecipesAdapter
+import com.example.recipesapp.data.model.Recipe
 import com.example.recipesapp.databinding.FragmentRecipesBinding
 
 class RecipesFragment : Fragment() {
@@ -21,9 +22,11 @@ class RecipesFragment : Fragment() {
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: RecipesAdapter
-    private var allRecipes: List<Recipe> = emptyList() // Хранит все рецепты для фильтрации
+    private var allRecipes: List<Recipe> = emptyList()
 
-    private val viewModel: RecipesViewModel by viewModels()
+    private val viewModel: RecipesViewModel by viewModels {
+        (requireActivity().application as RecipesApp).appViewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +43,6 @@ class RecipesFragment : Fragment() {
         setupObservers()
         setupSearch()
 
-        // Загружаем данные
         viewModel.fetchRecipes()
     }
 
@@ -54,18 +56,15 @@ class RecipesFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        // Наблюдаем за списком рецептов
         viewModel.recipes.observe(viewLifecycleOwner) { recipes ->
             allRecipes = recipes
             adapter.setRecipes(recipes)
         }
 
-        // Наблюдаем за состоянием загрузки
         viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
-        // Наблюдаем за ошибками
         viewModel.error.observe(viewLifecycleOwner) { errorMessage ->
             errorMessage?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
@@ -84,6 +83,9 @@ class RecipesFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
     }
+
+
+
 
     private fun filterRecipes(query: String) {
         val filtered = if (query.isEmpty()) {

@@ -1,56 +1,58 @@
 package com.example.recipesapp.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.recipesapp.data.Recipe
-import com.example.recipesapp.network.RetrofitInstance
+import androidx.lifecycle.*
+import com.example.recipesapp.network.SessionManager
+import com.example.recipesapp.data.model.Recipe
+import com.example.recipesapp.data.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel : ViewModel() {
+class FavoritesViewModel(
+    private val userRepository: UserRepository,
+) : ViewModel() {
 
-    private val _favorites = MutableLiveData<List<Recipe>>()
-    val favorites: LiveData<List<Recipe>> = _favorites
-
-    private val _error = MutableLiveData<String?>()
-    val error: LiveData<String?> = _error
+    private val _state = MutableLiveData<FavoritesState>()
+    val state: LiveData<FavoritesState> = _state
 
     private var allFavorites: List<Recipe> = emptyList()
 
-    fun fetchFavorites(jwtToken: String) {
+    fun fetchFavorites(token: String) {
+        _state.value = FavoritesState.Loading
         viewModelScope.launch {
             try {
-                // Fetch favorites from the API
-                val response = RetrofitInstance.api.getFavorites(jwtToken)
-
-                if (response.isSuccessful) {
-                    response.body()?.let { body ->
-                        allFavorites = body.map { response ->
-                            Recipe(
-                                _id = response._id,
-                                name = response.name,
-                                description = response.description,
-                                picture = response.picture
-                            )
-                        }
-                        _favorites.value = allFavorites
-                    } ?: run {
-                        _favorites.value = emptyList()
-                    }
-                } else {
-                    _error.value = "Failed to fetch favorites: ${response.message()}"
+                val favorites = userRepository.getFavorites(token).map {
+                    Recipe(
+                        _id = it._id,
+                        name = it.name,
+                        description = it.description,
+                        picture = it.picture,
+                        isFavourite = true
+                    )
                 }
+                allFavorites = favorites
+                _state.value = FavoritesState.Success(favorites)
             } catch (e: Exception) {
-                _error.value = "Error: ${e.message}"
+                _state.value = FavoritesState.Error("Failed to fetch favorites: ${e.message}")
             }
         }
     }
 
     fun filterFavorites(query: String) {
-        val filteredList = allFavorites.filter { recipe ->
-            recipe.name.contains(query, ignoreCase = true) || recipe.description.contains(query, ignoreCase = true)
+        val filteredList = if (query.isEmpty()) {
+            allFavorites
+        } else {
+            allFavorites.filter { recipe ->
+                recipe.name.contains(query, ignoreCase = true) ||
+                        recipe.description.contains(query, ignoreCase = true)
+            }
         }
-        _favorites.value = filteredList
+        _state.value = FavoritesState.Success(filteredList)
     }
+
 }
+
+sealed class FavoritesState {
+    object Loading : FavoritesState()
+    data class Success(val favorites: List<Recipe>) : FavoritesState()
+    data class Error(val message: String) : FavoritesState()
+}
+

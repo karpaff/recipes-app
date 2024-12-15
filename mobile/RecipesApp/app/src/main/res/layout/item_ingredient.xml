@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:text="Ingredient"
     android:textSize="16sp"
-    android:padding="8dp" />
+    android:padding="8dp"
+    android:textColor="@color/pantone"/>

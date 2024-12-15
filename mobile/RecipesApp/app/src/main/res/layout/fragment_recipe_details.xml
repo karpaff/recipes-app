@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/secondary_color"
     android:fitsSystemWindows="true">
 
     <!-- Прогресс-бар для загрузки -->
@@ -23,10 +24,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/pantone"
             android:elevation="4dp"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:titleTextColor="@color/black"
+            app:titleTextColor="@color/secondary_color"
             app:title="Recipe Details" />
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,7 +59,7 @@
                     android:text="Recipe Name"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/pantone" />
 
                 <!-- Звездочка -->
                 <ImageView
@@ -94,7 +95,7 @@
                     android:text="Cooking Time:"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:textColor="@color/gray" />
+                    android:textColor="@color/pantone" />
 
                 <TextView
                     android:id="@+id/recipe_details_time"
@@ -103,7 +104,7 @@
                     android:layout_weight="1"
                     android:text="30 mins"
                     android:textSize="16sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/pantone" />
             </LinearLayout>
 
             <LinearLayout
@@ -120,7 +121,7 @@
                     android:text="Difficulty:"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    android:textColor="@color/gray" />
+                    android:textColor="@color/pantone" />
 
                 <TextView
                     android:id="@+id/recipe_details_difficulty"
@@ -129,7 +130,7 @@
                     android:layout_weight="1"
                     android:text="Medium"
                     android:textSize="16sp"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/pantone" />
             </LinearLayout>
 
             <!-- Разделитель -->
@@ -146,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:text="Recipe Description goes here."
                 android:textSize="16sp"
+                android:textColor="@color/pantone"
                 android:layout_marginBottom="16dp"
                 android:lineSpacingExtra="4dp" />
 
@@ -154,6 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ingredients"
+                android:textColor="@color/pantone"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp" />
@@ -179,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:text="Steps"
                 android:textStyle="bold"
+                android:textColor="@color/pantone"
                 android:textSize="18sp"
                 android:layout_marginBottom="8dp" />
 
@@ -187,7 +191,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
-                android:nestedScrollingEnabled="false"/>
+                android:nestedScrollingEnabled="false"
+                />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

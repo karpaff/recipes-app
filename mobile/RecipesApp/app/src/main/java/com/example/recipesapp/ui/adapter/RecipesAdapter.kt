@@ -1,4 +1,4 @@
-package com.example.recipesapp.adapter
+package com.example.recipesapp.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.recipesapp.R
-import com.example.recipesapp.data.Recipe
+import com.example.recipesapp.data.model.Recipe
 import com.example.recipesapp.databinding.ItemRecipeBinding
 
 class RecipesAdapter(
@@ -31,12 +31,11 @@ class RecipesAdapter(
 
         holder.binding.recipeName.text = recipe.name
         holder.binding.recipeDescription.text = recipe.description
-        // Загрузка изображения с помощью Glide
         Glide.with(holder.itemView.context)
-            .load(recipe.picture) // URL картинки
-            .placeholder(R.drawable.ic_placeholder) // Заглушка на время загрузки
-            .error(R.drawable.ic_placeholder) // Заглушка при ошибке
-            .into(holder.recipeImage) // ID ImageView
+            .load(recipe.picture)
+            .placeholder(R.drawable.ic_placeholder)
+            .error(R.drawable.ic_placeholder)
+            .into(holder.recipeImage)
 
         holder.itemView.setOnClickListener { onRecipeClick(recipe) }
 

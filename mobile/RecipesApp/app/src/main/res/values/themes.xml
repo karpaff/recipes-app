@@ -1,8 +1,10 @@
 <resources>
     <!-- Основная тема приложения -->
     <style name="Theme.RecipesApp"  parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimary">@color/pantone</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="colorAccent">@color/accentColor</item>
+        <item name="colorAccent">@color/secondary_color</item>
+        <item name="fontFamily">@font/font</item>
     </style>
 </resources>
+
